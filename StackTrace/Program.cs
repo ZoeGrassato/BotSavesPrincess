@@ -8,21 +8,54 @@ namespace StackTrace
     {
         static void Main(string[] args)
         {
-            var dictionairy = new string[,]
-            {
-                {"-", "-", "-","-", "p" },
-                {"-", "-","-","-", "-" },
-                {"-", "-","-","-", "-" },
-                {"-", "-","-","-", "-" },
-                {"-", "-","-","-", "-" }
-            };
-            DisplayPathtoPrincess(3, dictionairy);
+            //var dictionairy = new string[,]
+            //{
+            //    //{"-", "-", "-","-", "p" },
+            //    //{"-", "-","-","-", "-" },
+            //    //{"-", "-","-","-", "-" },
+            //    //{"-", "-","-","-", "-" },
+            //    //{"-", "-","-","-", "-" }
+
+            //     {"p", "-","-" },
+            //    {"-","-", "-" },
+            //    {"-","-", "-" }
+            //};
+
+            //int m;
+
+            //m = int.Parse(Console.ReadLine());
+
+            String[] grid = new String[] { "p", "-", "-", "-", "-", "-", "-", "-", "-" };
+            //for (int i = 0; i < m; i++)
+            //{
+            //    grid[i] = Console.ReadLine();
+            //}
+
+            displayPathtoPrincess(3, grid);
         }
-        static void DisplayPathtoPrincess(int n, string[,] matrix)
+
+        static string[,] ConvertToMatrix(String[] matrixItems, int n)
         {
+            var final = new string[n, n];
+            int columnIteration = 0;
+
+            for (int i = 0; i < n -1; i++)
+            {
+                for(int j = 0; j < n - 1; j++)
+                {
+                    final[i, j] = matrixItems[columnIteration];
+                    columnIteration++;
+                }
+            }
+            return final;
+        }
+
+        static void displayPathtoPrincess(int n, String[] stringItems)
+        {
+            var convertedMatrix = ConvertToMatrix(stringItems, n);
             var column = -1;
-            var row = FindRow(matrix, ref column);
-            ProcessItemsForPrinting(matrix, row, column, n);
+            var row = FindRow(convertedMatrix, ref column);
+            ProcessItemsForPrinting( row, column, n);
         }
 
         static int FindRow(string[,] matrix, ref int column)
@@ -46,7 +79,7 @@ namespace StackTrace
                .ToList();
         }
 
-        static void ProcessItemsForPrinting(string[,] matrix, int rowNumber, int columnNumber, int n)
+        static void ProcessItemsForPrinting( int rowNumber, int columnNumber, int n)
         {
             int startingPoint = (n / 2);
             int difference = startingPoint - columnNumber;
